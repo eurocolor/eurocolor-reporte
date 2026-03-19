@@ -1,2 +1,2 @@
 # eurocolor-reporte
-reporte comercial
+reporte tecnico
