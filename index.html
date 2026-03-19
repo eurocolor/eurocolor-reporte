@@ -23,8 +23,10 @@ body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;paddin
 .req{color:#E24B4A}
 .field input,.field textarea,.field select{width:100%;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1a18;background:#f9f8f5;border:0.5px solid #D3D1C7;border-radius:10px;padding:10px 13px;outline:none;transition:border-color 0.15s,background 0.15s}
 .field input:focus,.field textarea:focus,.field select:focus{border-color:#1D9E75;background:#fff;box-shadow:0 0 0 3px rgba(29,158,117,0.08)}
+.field input.error,.field textarea.error,.field select.error{border-color:#E24B4A !important;background:#fff8f8 !important;box-shadow:0 0 0 3px rgba(226,75,74,0.08) !important}
 .field textarea{resize:vertical;min-height:80px;line-height:1.6}
 .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;background-color:#f9f8f5}
+.field-error-msg{font-size:11px;color:#E24B4A;margin-top:4px;display:none}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:500px){.field-row{grid-template-columns:1fr}}
 .fhint{font-size:11px;color:#B4B2A9;margin-bottom:10px}
@@ -37,6 +39,8 @@ body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;paddin
 .chip.on .chip-box{background:#1D9E75;border-color:#1D9E75}
 .chip-check{display:none;width:10px;height:10px}
 .chip.on .chip-check{display:block}
+.chip-group-error{border:0.5px solid #E24B4A;border-radius:10px;padding:8px;background:#fff8f8}
+.chip-group-error-msg{font-size:11px;color:#E24B4A;margin-top:6px;display:none}
 .resultado-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 @media(max-width:420px){.resultado-grid{grid-template-columns:1fr}}
 .rchip{display:flex;align-items:center;gap:9px;padding:9px 12px;border:0.5px solid #e0dfd8;border-radius:10px;cursor:pointer;font-size:13px;color:#2C2C2A;background:#f9f8f5;user-select:none;transition:all 0.12s}
@@ -55,6 +59,7 @@ body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;paddin
 .rm:hover{color:#E24B4A;background:#FCEBEB}
 .add-btn{display:flex;align-items:center;gap:6px;font-size:13px;color:#888780;background:none;border:0.5px dashed #D3D1C7;border-radius:10px;padding:8px 13px;cursor:pointer;width:100%;margin-top:8px;font-family:'DM Sans',sans-serif;transition:all 0.12s}
 .add-btn:hover{color:#1D9E75;border-color:#1D9E75;background:#f0faf6}
+.validation-banner{display:none;background:#FCEBEB;color:#A32D2D;border:0.5px solid #F7C1C1;border-radius:10px;padding:11px 15px;font-size:13px;margin-bottom:12px;text-align:center}
 .submit-btn{width:100%;padding:14px;background:#1D9E75;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:1.5rem;display:flex;align-items:center;justify-content:center;gap:9px;transition:background 0.15s}
 .submit-btn:hover{background:#0F6E56}
 .submit-btn:active{transform:scale(0.99)}
@@ -82,17 +87,42 @@ body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;paddin
     <div class="section">
       <div class="section-title">Información general</div>
       <div class="field-row">
-        <div class="field"><label>Fecha de la visita <span class="req">*</span></label><input type="date" id="fecha"></div>
-        <div class="field"><label>Vendedor <span class="req">*</span></label>
-          <select id="vendedor"><option value="">Seleccionar...</option><option>Rubén</option><option>Gerson</option><option>Francisco</option></select>
+        <div class="field">
+          <label>Fecha de la visita <span class="req">*</span></label>
+          <input type="date" id="fecha">
+          <div class="field-error-msg" id="err-fecha">Campo obligatorio</div>
+        </div>
+        <div class="field">
+          <label>Vendedor <span class="req">*</span></label>
+          <select id="vendedor"><option value="">Seleccionar...</option><option>No tiene</option><option>Rubén</option><option>Gerson</option><option>Francisco</option></select>
+          <div class="field-error-msg" id="err-vendedor">Campo obligatorio</div>
+        </div>
+        <div class="field">
+          <label>Técnico <span class="req">*</span></label>
+          <select id="tecnico"><option value="">Seleccionar...</option><option>Manuel</option><option>Abdiel</option><option>Luis</option></select>
         </div>
       </div>
-      <div class="field"><label>Nombre del taller <span class="req">*</span></label><input type="text" id="taller" placeholder="Ej. Taller Pérez"></div>
-      <div class="field-row">
-        <div class="field"><label>Contacto en el taller <span class="req">*</span></label><input type="text" id="contacto" placeholder="Nombre completo"></div>
-        <div class="field"><label>Teléfono</label><input type="tel" id="telefono" placeholder="+507 6000-0000"></div>
+      <div class="field">
+        <label>Nombre del taller <span class="req">*</span></label>
+        <input type="text" id="taller" placeholder="Ej. Taller Pérez">
+        <div class="field-error-msg" id="err-taller">Campo obligatorio</div>
       </div>
-      <div class="field"><label>Dirección del taller <span class="req">*</span></label><input type="text" id="direccion" placeholder="Corregimiento, Ciudad"></div>
+      <div class="field-row">
+        <div class="field">
+          <label>Contacto en el taller <span class="req">*</span></label>
+          <input type="text" id="contacto" placeholder="Nombre completo">
+          <div class="field-error-msg" id="err-contacto">Campo obligatorio</div>
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="tel" id="telefono" placeholder="+507 6000-0000">
+        </div>
+      </div>
+      <div class="field">
+        <label>Dirección del taller <span class="req">*</span></label>
+        <input type="text" id="direccion" placeholder="Corregimiento, Ciudad">
+        <div class="field-error-msg" id="err-direccion">Campo obligatorio</div>
+      </div>
     </div>
 
     <div class="section">
@@ -108,12 +138,17 @@ body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;paddin
     <div class="section">
       <div class="section-title">Motivo de la visita <span class="req">*</span></div>
       <div class="checkbox-grid" id="motivo-grid"></div>
+      <div class="chip-group-error-msg" id="err-motivo">Selecciona al menos un motivo</div>
       <div class="field" style="margin-top:8px"><input type="text" id="motivo-otro" placeholder="Otro motivo (describir)..."></div>
     </div>
 
     <div class="section">
       <div class="section-title">Actividades realizadas en la visita</div>
-      <div class="field"><label>Descripción <span class="req">*</span></label><textarea id="actividades" rows="4" placeholder="Describe detalladamente qué se hizo durante la visita..."></textarea></div>
+      <div class="field">
+        <label>Descripción <span class="req">*</span></label>
+        <textarea id="actividades" rows="4" placeholder="Describe detalladamente qué se hizo durante la visita..."></textarea>
+        <div class="field-error-msg" id="err-actividades">Campo obligatorio</div>
+      </div>
     </div>
 
     <div class="section">
@@ -130,8 +165,8 @@ body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;paddin
       <div class="section-title">Productos sugeridos</div>
       <p class="fhint">Código/descripción — Cant. aprox. — Motivo</p>
       <table class="prod-table">
-        <thead><tr><th>Código / descripción</th><th>Cant. aprox.</th><th>Motivo / observación</th><th></th></tr></thead>
-        <tbody id="sug-body"><tr><td><input type="text" placeholder="Ej. P-165-XL"></td><td><input type="text" placeholder="2 lt"></td><td><input type="text" placeholder="Motivo"></td><td></td></tr></tbody>
+        <thead><tr><th>Código / descripción</th><th>Motivo / observación</th><th></th></tr></thead>
+        <tbody id="sug-body"><tr><td><input type="text" placeholder="Ej. P-165-XL"></td><td><input type="text" placeholder="Motivo"></td><td></td></tr></tbody>
       </table>
       <button class="add-btn" id="add-sug">+ Agregar producto sugerido</button>
     </div>
@@ -139,19 +174,25 @@ body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;paddin
     <div class="section">
       <div class="section-title">Resultado de la visita <span class="req">*</span></div>
       <div class="resultado-grid" id="resultado-grid"></div>
+      <div class="chip-group-error-msg" id="err-resultado">Selecciona al menos un resultado</div>
       <div class="field" style="margin-top:8px"><input type="text" id="resultado-otro" placeholder="Otro resultado (describir)..."></div>
     </div>
 
     <div class="section">
       <div class="section-title">Compromisos / próximos pasos</div>
-      <div class="field"><label>Compromisos adquiridos <span class="req">*</span></label><textarea id="compromisos" rows="3" placeholder="Ej: Enviar cotización el lunes, agendar demo de Dichemix..."></textarea></div>
+      <div class="field">
+        <label>Compromisos adquiridos</label>
+        <textarea id="compromisos" rows="3" placeholder="Ej: Enviar cotización el lunes, agendar demo de Dichemix..."></textarea>
+      </div>
       <div class="field"><label>Fecha de seguimiento</label><input type="date" id="fecha-seg"></div>
-      <div class="field"><label>Potencial de venta</label>
+      <div class="field">
+        <label>Potencial de venta</label>
         <select id="potencial"><option value="">Seleccionar...</option><option>Alto — cierre probable esta semana</option><option>Medio — requiere 1-2 seguimientos más</option><option>Bajo — proceso largo</option><option>Ninguno — sin oportunidad por ahora</option></select>
       </div>
       <div class="field"><label>Monto estimado de venta (USD)</label><input type="number" id="monto" placeholder="0.00" min="0" step="0.01"></div>
     </div>
 
+    <div class="validation-banner" id="val-banner">Por favor completa todos los campos obligatorios marcados en rojo</div>
     <button class="submit-btn" id="submit-btn">
       <div class="spinner" id="spinner"></div>
       <span id="btn-text">Enviar reporte</span>
@@ -174,9 +215,9 @@ const MOTIVOS=['Presentación de productos nuevos','Seguimiento','Revisión téc
 const RESULTADOS=['Cliente satisfecho','Pendiente seguimiento','Cotización enviada','Venta realizada','Requiere nueva visita','Sin interés'];
 
 function buildChips(containerId,items,type){
-  const c=document.getElementById(containerId);
-  items.forEach(label=>{
-    const div=document.createElement('div');
+  var c=document.getElementById(containerId);
+  items.forEach(function(label){
+    var div=document.createElement('div');
     div.className=type;
     div.dataset.val=label;
     if(type==='chip'){
@@ -184,7 +225,12 @@ function buildChips(containerId,items,type){
     } else {
       div.innerHTML='<div class="rchip-dot"></div><span>'+label+'</span>';
     }
-    div.addEventListener('click',function(){this.classList.toggle('on');});
+    div.addEventListener('click',function(){
+      this.classList.toggle('on');
+      // limpiar error del grupo al seleccionar
+      if(type==='chip') clearGroupError('motivo-grid','err-motivo');
+      else clearGroupError('resultado-grid','err-resultado');
+    });
     c.appendChild(div);
   });
 }
@@ -193,17 +239,41 @@ buildChips('motivo-grid',MOTIVOS,'chip');
 buildChips('resultado-grid',RESULTADOS,'rchip');
 
 function getSelected(containerId){
-  return Array.from(document.querySelectorAll('#'+containerId+' .on')).map(el=>el.dataset.val).join(', ');
+  return Array.from(document.querySelectorAll('#'+containerId+' .on')).map(function(el){return el.dataset.val;}).join(', ');
+}
+
+// Limpiar error de campo al escribir
+['fecha','vendedor','tecnico','taller','contacto','direccion','actividades'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',function(){clearFieldError(id);});
+  document.getElementById(id).addEventListener('change',function(){clearFieldError(id);});
+});
+
+function clearFieldError(id){
+  var el=document.getElementById(id);
+  el.classList.remove('error');
+  var errEl=document.getElementById('err-'+id);
+  if(errEl) errEl.style.display='none';
+}
+
+function clearGroupError(gridId, errId){
+  document.getElementById(errId).style.display='none';
+}
+
+function showFieldError(id){
+  var el=document.getElementById(id);
+  el.classList.add('error');
+  var errEl=document.getElementById('err-'+id);
+  if(errEl) errEl.style.display='block';
 }
 
 function makeRow(phs){
-  const tr=document.createElement('tr');
+  var tr=document.createElement('tr');
   phs.forEach(function(ph,i){
-    const td=document.createElement('td');
+    var td=document.createElement('td');
     if(i<phs.length-1){
-      const inp=document.createElement('input');inp.type='text';inp.placeholder=ph;td.appendChild(inp);
+      var inp=document.createElement('input');inp.type='text';inp.placeholder=ph;td.appendChild(inp);
     } else {
-      const btn=document.createElement('button');btn.className='rm';btn.textContent='×';
+      var btn=document.createElement('button');btn.className='rm';btn.textContent='×';
       btn.addEventListener('click',function(){this.closest('tr').remove();});
       td.appendChild(btn);
     }
@@ -216,7 +286,7 @@ document.getElementById('add-mat').addEventListener('click',function(){
   document.getElementById('mat-body').appendChild(makeRow(['Código / descripción','Cantidad','Observación','x']));
 });
 document.getElementById('add-sug').addEventListener('click',function(){
-  document.getElementById('sug-body').appendChild(makeRow(['Código / descripción','Cant. aprox.','Motivo','x']));
+  document.getElementById('sug-body').appendChild(makeRow(['Código / descripción','Motivo','x']));
 });
 
 function getTableData(tbodyId){
@@ -226,27 +296,48 @@ function getTableData(tbodyId){
 }
 
 document.getElementById('submit-btn').addEventListener('click',function(){
-  const g=function(id){return document.getElementById(id).value;};
-  const req={fecha:g('fecha'),vendedor:g('vendedor'),taller:g('taller'),contacto:g('contacto'),direccion:g('direccion'),actividades:g('actividades'),compromisos:g('compromisos')};
-  const motivo=getSelected('motivo-grid');
-  const resultado=getSelected('resultado-grid');
-  if(Object.values(req).some(function(v){return !v;})||!motivo||!resultado){
-    alert('Por favor completa todos los campos obligatorios (*)');return;
+  var g=function(id){return document.getElementById(id).value;};
+  var motivo=getSelected('motivo-grid');
+  var resultado=getSelected('resultado-grid');
+
+  // Validar todos los campos y marcar los que faltan SIN resetear nada
+  var valid=true;
+  ['fecha','vendedor','tecnico','taller','contacto','direccion','actividades'].forEach(function(id){
+    if(!g(id)){showFieldError(id);valid=false;}
+    else clearFieldError(id);
+  });
+  if(!motivo){document.getElementById('err-motivo').style.display='block';valid=false;}
+  if(!resultado){document.getElementById('err-resultado').style.display='block';valid=false;}
+
+  if(!valid){
+    document.getElementById('val-banner').style.display='block';
+    // scroll al primer error
+    var firstErr=document.querySelector('.error, .chip-group-error-msg[style*="block"]');
+    if(firstErr) firstErr.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
   }
-  const btn=document.getElementById('submit-btn');
+
+  document.getElementById('val-banner').style.display='none';
+  var btn=document.getElementById('submit-btn');
   btn.disabled=true;
   document.getElementById('spinner').style.display='block';
   document.getElementById('btn-text').textContent='Enviando...';
   document.getElementById('err-msg').style.display='none';
-  const payload=Object.assign({},req,{
-    telefono:g('telefono'),prodBase:g('prod-base'),prodClear:g('prod-clear'),
-    prodPintura:g('prod-pintura'),prodComp:g('prod-comp'),prodOtros:g('prod-otros'),
-    proveedor:g('proveedor'),
+
+  var payload={
+    fecha:g('fecha'),vendedor:g('vendedor'),taller:g('taller'),contacto:g('contacto'),
+    telefono:g('telefono'),tecnico:g('tecnico'),direccion:g('direccion'),
+    prodBase:g('prod-base'),prodClear:g('prod-clear'),prodPintura:g('prod-pintura'),
+    prodComp:g('prod-comp'),prodOtros:g('prod-otros'),proveedor:g('proveedor'),
     motivo:motivo+(g('motivo-otro')?' | '+g('motivo-otro'):''),
-    materiales:getTableData('mat-body'),sugeridos:getTableData('sug-body'),
+    actividades:g('actividades'),
+    materiales:getTableData('mat-body'),
+    sugeridos:getTableData('sug-body'),
     resultado:resultado+(g('resultado-otro')?' | '+g('resultado-otro'):''),
+    compromisos:g('compromisos'),
     fechaSeguimiento:g('fecha-seg'),potencial:g('potencial'),monto:g('monto')
-  });
+  };
+
   fetch(SHEET_URL,{method:'POST',body:JSON.stringify(payload)})
     .then(function(r){return r.json();})
     .then(function(d){
@@ -270,10 +361,13 @@ document.getElementById('new-btn').addEventListener('click',function(){
   document.querySelectorAll('input[type=date]').forEach(function(el){el.value='';});
   document.querySelectorAll('select').forEach(function(el){el.selectedIndex=0;});
   document.querySelectorAll('.chip.on,.rchip.on').forEach(function(el){el.classList.remove('on');});
+  document.querySelectorAll('.error').forEach(function(el){el.classList.remove('error');});
+  document.querySelectorAll('.field-error-msg,.chip-group-error-msg,.validation-banner').forEach(function(el){el.style.display='none';});
   ['mat-body','sug-body'].forEach(function(id){var b=document.getElementById(id);while(b.rows.length>1)b.deleteRow(1);});
-  btn.disabled=false;
+  document.getElementById('submit-btn').disabled=false;
   document.getElementById('spinner').style.display='none';
   document.getElementById('btn-text').textContent='Enviar reporte';
+  document.getElementById('fecha').valueAsDate=new Date();
 });
 
 document.getElementById('fecha').valueAsDate=new Date();
