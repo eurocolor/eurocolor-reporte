@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte de Visita Técnica — Eurocolor</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;padding:2rem 1rem}
+.form-wrap{max-width:680px;margin:0 auto;padding-bottom:4rem}
+.form-header{background:#fff;border-radius:16px;padding:1.75rem 1.5rem 1.5rem;margin-bottom:1rem;border:0.5px solid #e0dfd8}
+.logo-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+.logo-dot{width:10px;height:10px;background:#1D9E75;border-radius:50%}
+.logo-name{font-size:13px;font-weight:500;color:#1D9E75;letter-spacing:0.5px}
+.form-title{font-size:22px;font-weight:500;color:#1a1a18;letter-spacing:-0.5px;margin-bottom:4px}
+.form-sub{font-size:13px;color:#888780}
+.section{background:#fff;border:0.5px solid #e0dfd8;border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1rem}
+.section-title{font-size:11px;font-weight:500;color:#888780;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:0.5px solid #e0dfd8}
+.field{margin-bottom:1rem}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;color:#5F5E5A;margin-bottom:6px;font-weight:500}
+.req{color:#E24B4A}
+.field input,.field textarea,.field select{width:100%;font-family:'DM Sans',sans-serif;font-size:14px;color:#1a1a18;background:#f9f8f5;border:0.5px solid #D3D1C7;border-radius:10px;padding:10px 13px;outline:none;transition:border-color 0.15s,background 0.15s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:#1D9E75;background:#fff;box-shadow:0 0 0 3px rgba(29,158,117,0.08)}
+.field input.error,.field textarea.error,.field select.error{border-color:#E24B4A !important;background:#fff8f8 !important}
+.field textarea{resize:vertical;min-height:80px;line-height:1.6}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;background-color:#f9f8f5}
+.field-error-msg{font-size:11px;color:#E24B4A;margin-top:4px;display:none}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.field-row{grid-template-columns:1fr}}
+.fhint{font-size:11px;color:#B4B2A9;margin-bottom:10px}
+.checkbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.chip{display:flex;align-items:center;gap:9px;padding:9px 12px;border:0.5px solid #e0dfd8;border-radius:10px;cursor:pointer;font-size:13px;color:#2C2C2A;background:#f9f8f5;user-select:none;transition:all 0.12s}
+.chip:hover{border-color:#1D9E75;background:#f0faf6}
+.chip.on{border-color:#1D9E75;background:#E1F5EE;color:#085041}
+.chip-box{width:17px;height:17px;border:1.5px solid #D3D1C7;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#fff;transition:all 0.12s}
+.chip.on .chip-box{background:#1D9E75;border-color:#1D9E75}
+.chip-check{display:none;width:10px;height:10px}
+.chip.on .chip-check{display:block}
+.chip-group-error-msg{font-size:11px;color:#E24B4A;margin-top:6px;display:none}
+.resultado-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.rchip{display:flex;align-items:center;gap:9px;padding:9px 12px;border:0.5px solid #e0dfd8;border-radius:10px;cursor:pointer;font-size:13px;color:#2C2C2A;background:#f9f8f5;user-select:none;transition:all 0.12s}
+.rchip:hover{border-color:#378ADD;background:#f0f6fd}
+.rchip.on{border-color:#378ADD;background:#E6F1FB;color:#0C447C}
+.rchip-dot{width:17px;height:17px;border:1.5px solid #D3D1C7;border-radius:5px;flex-shrink:0;position:relative;background:#fff;transition:all 0.12s}
+.rchip.on .rchip-dot{background:#378ADD;border-color:#378ADD}
+.rchip.on .rchip-dot::after{content:'';display:block;width:8px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px);position:absolute;top:3px;left:2px}
+.prod-table{width:100%;border-collapse:collapse;font-size:13px}
+.prod-table th{font-size:11px;font-weight:500;color:#888780;text-align:left;padding:0 0 7px;border-bottom:0.5px solid #e0dfd8}
+.prod-table td{padding:5px 6px 5px 0;vertical-align:top}
+.prod-table td:last-child{width:32px;text-align:center;vertical-align:middle;padding-right:0}
+.prod-table input{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;color:#1a1a18;background:#f9f8f5;border:0.5px solid #e0dfd8;border-radius:8px;padding:8px 10px;outline:none}
+.prod-table input:focus{border-color:#1D9E75;background:#fff}
+.rm{background:none;border:none;color:#B4B2A9;cursor:pointer;font-size:18px;padding:4px 6px;border-radius:6px}
+.rm:hover{color:#E24B4A}
+.add-btn{display:flex;align-items:center;gap:6px;font-size:13px;color:#888780;background:none;border:0.5px dashed #D3D1C7;border-radius:10px;padding:8px 13px;cursor:pointer;width:100%;margin-top:8px;font-family:'DM Sans',sans-serif}
+.add-btn:hover{color:#1D9E75;border-color:#1D9E75;background:#f0faf6}
+.validation-banner{display:none;background:#FCEBEB;color:#A32D2D;border:0.5px solid #F7C1C1;border-radius:10px;padding:11px 15px;font-size:13px;margin-bottom:12px;text-align:center}
+.submit-btn{width:100%;padding:14px;background:#1D9E75;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:1.5rem;display:flex;align-items:center;justify-content:center;gap:9px}
+.submit-btn:hover{background:#0F6E56}
+.submit-btn:disabled{background:#9FE1CB;cursor:not-allowed}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err{display:none;background:#FCEBEB;color:#A32D2D;border:0.5px solid #F7C1C1;border-radius:10px;padding:11px 15px;font-size:13px;margin-top:12px;text-align:center}
+.ok-wrap{display:none;text-align:center;padding:4rem 2rem;background:#fff;border:0.5px solid #e0dfd8;border-radius:16px}
+.ok-icon{width:56px;height:56px;background:#E1F5EE;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
+.ok-title{font-size:18px;font-weight:500;color:#1a1a18;margin-bottom:6px}
+.ok-sub{font-size:13px;color:#888780;margin-bottom:1.5rem}
+.ok-btn{padding:10px 22px;background:none;border:0.5px solid #D3D1C7;border-radius:10px;font-size:13px;color:#5F5E5A;cursor:pointer;font-family:'DM Sans',sans-serif}
+</style>
+</head>
+<body>
+<div class="form-wrap">
+  <div class="form-header">
+    <div class="logo-row"><div class="logo-dot"></div><div class="logo-name">EUROCOLOR PANAMÁ</div></div>
+    <div class="form-title">Reporte de visita técnica</div>
+    <div class="form-sub">Todos los campos marcados con * son obligatorios</div>
+  </div>
+
+  <div id="fc">
+    <div class="section">
+      <div class="section-title">Información general</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Fecha de la visita <span class="req">*</span></label>
+          <input type="date" id="f_fecha">
+          <div class="field-error-msg" id="e_fecha">Campo obligatorio</div>
+        </div>
+        <div class="field">
+          <label>Vendedor <span class="req">*</span></label>
+          <select id="f_vendedor">
+            <option value="">Seleccionar...</option>
+            <option>No tiene</option>
+            <option>Rubén</option>
+            <option>Gerson</option>
+            <option>Francisco</option>
+          </select>
+          <div class="field-error-msg" id="e_vendedor">Campo obligatorio</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Técnico <span class="req">*</span></label>
+        <select id="f_tecnico">
+          <option value="">Seleccionar...</option>
+          <option>Manuel</option>
+          <option>Abdiel</option>
+          <option>Luis</option>
+        </select>
+        <div class="field-error-msg" id="e_tecnico">Campo obligatorio</div>
+      </div>
+
+      <div class="field">
+        <label>Nombre del taller <span class="req">*</span></label>
+        <input type="text" id="f_taller" placeholder="Ej. Taller Pérez">
+        <div class="field-error-msg" id="e_taller">Campo obligatorio</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Contacto en el taller <span class="req">*</span></label>
+          <input type="text" id="f_contacto" placeholder="Nombre completo">
+          <div class="field-error-msg" id="e_contacto">Campo obligatorio</div>
+        </div>
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="tel" id="f_telefono" placeholder="+507 6000-0000">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Dirección del taller <span class="req">*</span></label>
+        <input type="text" id="f_direccion" placeholder="Corregimiento, Ciudad">
+        <div class="field-error-msg" id="e_direccion">Campo obligatorio</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Productos que utilizan actualmente</div>
+      <div class="field"><label>Base</label><input type="text" id="f_prodBase" placeholder="Marca / producto actual"></div>
+      <div class="field"><label>Clear</label><input type="text" id="f_prodClear" placeholder="Marca / producto actual"></div>
+      <div class="field"><label>Pintura</label><input type="text" id="f_prodPintura" placeholder="Marca / producto actual"></div>
+      <div class="field"><label>Complementarios <span style="font-weight:400;font-size:11px;color:#B4B2A9">(masillas, disolventes, lijas, etc.)</span></label><input type="text" id="f_prodComp" placeholder="Marca / productos actuales"></div>
+      <div class="field"><label>Otros productos relevantes</label><input type="text" id="f_prodOtros" placeholder="Describir"></div>
+      <div class="field"><label>Proveedor(es)</label><input type="text" id="f_proveedor" placeholder="Ej. Sikkens, PPG, Spies Hecker..."></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Motivo de la visita <span class="req">*</span></div>
+      <div class="checkbox-grid" id="motivo-grid"></div>
+      <div class="chip-group-error-msg" id="e_motivo">Selecciona al menos un motivo</div>
+      <div class="field" style="margin-top:8px"><input type="text" id="f_motivoOtro" placeholder="Otro motivo (describir)..."></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Actividades realizadas en la visita</div>
+      <div class="field">
+        <label>Descripción <span class="req">*</span></label>
+        <textarea id="f_actividades" rows="4" placeholder="Describe detalladamente qué se hizo durante la visita..."></textarea>
+        <div class="field-error-msg" id="e_actividades">Campo obligatorio</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Materiales utilizados en la visita</div>
+      <p class="fhint">Código/descripción — Cantidad — Observaciones</p>
+      <table class="prod-table">
+        <thead><tr><th>Código / descripción</th><th>Cantidad</th><th>Observaciones</th><th></th></tr></thead>
+        <tbody id="mat-body"><tr><td><input type="text" placeholder="Ej. BC-2K-001"></td><td><input type="text" placeholder="1 lt"></td><td><input type="text" placeholder="Observación"></td><td></td></tr></tbody>
+      </table>
+      <button class="add-btn" id="add-mat">+ Agregar material</button>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Productos sugeridos</div>
+      <p class="fhint">Código/descripción — Motivo / observaciones</p>
+      <table class="prod-table">
+        <thead><tr><th>Código / descripción</th><th>Motivo / observación</th><th></th></tr></thead>
+        <tbody id="sug-body"><tr><td><input type="text" placeholder="Ej. P-165-XL"></td><td><input type="text" placeholder="Motivo"></td><td></td></tr></tbody>
+      </table>
+      <button class="add-btn" id="add-sug">+ Agregar producto sugerido</button>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Resultado de la visita <span class="req">*</span></div>
+      <div class="resultado-grid" id="resultado-grid"></div>
+      <div class="chip-group-error-msg" id="e_resultado">Selecciona al menos un resultado</div>
+      <div class="field" style="margin-top:8px"><input type="text" id="f_resultadoOtro" placeholder="Otro resultado (describir)..."></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Compromisos / próximos pasos</div>
+      <div class="field">
+        <label>Compromisos adquiridos</label>
+        <textarea id="f_compromisos" rows="3" placeholder="Ej: Enviar cotización el lunes..."></textarea>
+      </div>
+      <div class="field"><label>Fecha de seguimiento</label><input type="date" id="f_fechaSeg"></div>
+      <div class="field">
+        <label>Potencial de venta</label>
+        <select id="f_potencial">
+          <option value="">Seleccionar...</option>
+          <option>Alto — cierre probable esta semana</option>
+          <option>Medio — requiere 1-2 seguimientos más</option>
+          <option>Bajo — proceso largo</option>
+          <option>Ninguno — sin oportunidad por ahora</option>
+        </select>
+      </div>
+      <div class="field"><label>Monto estimado de venta (USD)</label><input type="number" id="f_monto" placeholder="0.00" min="0" step="0.01"></div>
+    </div>
+
+    <div class="validation-banner" id="val-banner">Por favor completa todos los campos obligatorios marcados en rojo</div>
+    <button class="submit-btn" id="submit-btn">
+      <div class="spinner" id="spinner"></div>
+      <span id="btn-text">Enviar reporte</span>
+    </button>
+    <div class="err" id="err-msg">Hubo un error al enviar. Verifica tu conexión e intenta de nuevo.</div>
+  </div>
+
+  <div class="ok-wrap" id="ok-msg">
+    <div class="ok-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D9E75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="ok-title">Reporte enviado correctamente</div>
+    <div class="ok-sub">Los datos fueron registrados en Google Sheets.</div>
+    <button class="ok-btn" id="new-btn">Nuevo reporte</button>
+  </div>
+</div>
+
+<script>
+var SHEET_URL='https://script.google.com/macros/s/AKfycbz1qX3gnjRaZgxi_19a4wMKQC19SGP7CvQoxVsOWAiH5ITCc2ay3iNYO86UgJKrrpCl/exec';
+
+var MOTIVOS=['Presentación de productos nuevos','Seguimiento','Revisión técnica / ajuste de color','Capacitación / demostración','Queja o reclamo','Asesoría en aplicación de pintura'];
+var RESULTADOS=['Cliente satisfecho','Pendiente seguimiento','Cotización enviada','Venta realizada','Requiere nueva visita','Sin interés'];
+
+function buildChips(cid, items, errId, cls){
+  var c=document.getElementById(cid);
+  items.forEach(function(label){
+    var d=document.createElement('div');
+    d.className=cls||'chip';
+    d.dataset.val=label;
+    d.innerHTML='<div class="chip-box"><svg class="chip-check" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-5" stroke="#fff" stroke-width="1.5"/></svg></div><span>'+label+'</span>';
+    d.addEventListener('click',function(){
+      this.classList.toggle('on');
+      if(errId) document.getElementById(errId).style.display='none';
+    });
+    c.appendChild(d);
+  });
+}
+
+function buildRchips(cid, items, errId){
+  var c=document.getElementById(cid);
+  items.forEach(function(label){
+    var d=document.createElement('div');
+    d.className='rchip';
+    d.dataset.val=label;
+    d.innerHTML='<div class="rchip-dot"></div><span>'+label+'</span>';
+    d.addEventListener('click',function(){
+      this.classList.toggle('on');
+      if(errId) document.getElementById(errId).style.display='none';
+    });
+    c.appendChild(d);
+  });
+}
+
+buildChips('motivo-grid', MOTIVOS, 'e_motivo');
+buildRchips('resultado-grid', RESULTADOS, 'e_resultado');
+
+function getChips(cid){
+  return Array.from(document.querySelectorAll('#'+cid+' .on')).map(function(el){return el.dataset.val;}).join(', ');
+}
+
+function g(id){ return document.getElementById(id).value; }
+
+function makeRow(phs){
+  var tr=document.createElement('tr');
+  phs.forEach(function(ph,i){
+    var td=document.createElement('td');
+    if(i<phs.length-1){var inp=document.createElement('input');inp.type='text';inp.placeholder=ph;td.appendChild(inp);}
+    else{var btn=document.createElement('button');btn.className='rm';btn.textContent='×';btn.addEventListener('click',function(){this.closest('tr').remove();});td.appendChild(btn);}
+    tr.appendChild(td);
+  });
+  return tr;
+}
+
+document.getElementById('add-mat').addEventListener('click',function(){
+  document.getElementById('mat-body').appendChild(makeRow(['Código / descripción','Cantidad','Observación','x']));
+});
+document.getElementById('add-sug').addEventListener('click',function(){
+  document.getElementById('sug-body').appendChild(makeRow(['Código / descripción','Motivo','x']));
+});
+
+function getTable(tbodyId){
+  return Array.from(document.querySelectorAll('#'+tbodyId+' tr'))
+    .map(function(tr){return Array.from(tr.querySelectorAll('input')).map(function(i){return i.value;}).filter(function(v){return v;}).join(' | ');})
+    .filter(function(r){return r;}).join('\n');
+}
+
+function showErr(id){ document.getElementById(id).style.display='block'; document.getElementById('f_'+id.replace('e_','')).classList.add('error'); }
+function clearErr(id){ document.getElementById(id).style.display='none'; var el=document.getElementById('f_'+id.replace('e_','')); if(el) el.classList.remove('error'); }
+
+['fecha','vendedor','tecnico','taller','contacto','direccion','actividades'].forEach(function(id){
+  var el=document.getElementById('f_'+id);
+  if(el){ el.addEventListener('change',function(){clearErr('e_'+id);}); el.addEventListener('input',function(){clearErr('e_'+id);}); }
+});
+
+document.getElementById('submit-btn').addEventListener('click',function(){
+  var valid=true;
+
+  ['fecha','vendedor','tecnico','taller','contacto','direccion','actividades'].forEach(function(id){
+    if(!g('f_'+id)){ showErr('e_'+id); valid=false; }
+    else clearErr('e_'+id);
+  });
+
+  var motivo=getChips('motivo-grid');
+  var resultado=getChips('resultado-grid');
+  if(!motivo){ document.getElementById('e_motivo').style.display='block'; valid=false; }
+  if(!resultado){ document.getElementById('e_resultado').style.display='block'; valid=false; }
+
+  if(!valid){
+    document.getElementById('val-banner').style.display='block';
+    document.querySelector('.error, [style*="block"]').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  document.getElementById('val-banner').style.display='none';
+  var btn=document.getElementById('submit-btn');
+  btn.disabled=true;
+  document.getElementById('spinner').style.display='block';
+  document.getElementById('btn-text').textContent='Enviando...';
+  document.getElementById('err-msg').style.display='none';
+
+  // PAYLOAD — orden exacto igual al Apps Script
+  var payload={
+    fecha:       g('f_fecha'),
+    vendedor:    g('f_vendedor'),
+    tecnico:     g('f_tecnico'),
+    taller:      g('f_taller'),
+    contacto:    g('f_contacto'),
+    direccion:   g('f_direccion'),
+    prodBase:    g('f_prodBase'),
+    prodClear:   g('f_prodClear'),
+    prodPintura: g('f_prodPintura'),
+    prodComp:    g('f_prodComp'),
+    prodOtros:   g('f_prodOtros'),
+    proveedor:   g('f_proveedor'),
+    motivo:      motivo+(g('f_motivoOtro')?' | '+g('f_motivoOtro'):''),
+    actividades: g('f_actividades'),
+    materiales:  getTable('mat-body'),
+    sugeridos:   getTable('sug-body'),
+    resultado:   resultado+(g('f_resultadoOtro')?' | '+g('f_resultadoOtro'):''),
+    compromisos: g('f_compromisos'),
+    fechaSeg:    g('f_fechaSeg'),
+    potencial:   g('f_potencial'),
+    monto:       g('f_monto')
+  };
+
+  fetch(SHEET_URL,{method:'POST',body:JSON.stringify(payload)})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.status==='ok'){document.getElementById('fc').style.display='none';document.getElementById('ok-msg').style.display='block';}
+      else throw new Error();
+    })
+    .catch(function(){
+      document.getElementById('err-msg').style.display='block';
+      btn.disabled=false;
+      document.getElementById('spinner').style.display='none';
+      document.getElementById('btn-text').textContent='Enviar reporte';
+    });
+});
+
+document.getElementById('new-btn').addEventListener('click',function(){
+  document.getElementById('fc').style.display='block';
+  document.getElementById('ok-msg').style.display='none';
+  document.querySelectorAll('input[type=text],input[type=tel],input[type=number],textarea').forEach(function(el){el.value='';});
+  document.querySelectorAll('input[type=date]').forEach(function(el){el.value='';});
+  document.querySelectorAll('select').forEach(function(el){el.selectedIndex=0;});
+  document.querySelectorAll('.chip.on,.rchip.on').forEach(function(el){el.classList.remove('on');});
+  document.querySelectorAll('.error').forEach(function(el){el.classList.remove('error');});
+  document.querySelectorAll('.field-error-msg,.chip-group-error-msg,.validation-banner').forEach(function(el){el.style.display='none';});
+  ['mat-body','sug-body'].forEach(function(id){var b=document.getElementById(id);while(b.rows.length>1)b.deleteRow(1);});
+  document.getElementById('submit-btn').disabled=false;
+  document.getElementById('spinner').style.display='none';
+  document.getElementById('btn-text').textContent='Enviar reporte';
+  document.getElementById('f_fecha').valueAsDate=new Date();
+});
+
+document.getElementById('f_fecha').valueAsDate=new Date();
+</script>
+</body>
+</html>
