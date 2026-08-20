@@ -105,7 +105,7 @@ body{font-family:'DM Sans',sans-serif;background:#f5f4f0;min-height:100vh;paddin
         <label>Técnico <span class="req">*</span></label>
         <select id="f_tecnico">
           <option value="">Seleccionar...</option>
-          <option>Manuel</option>
+          <option>Jonathan</option>
           <option>Abdiel</option>
           <option>Luis</option>
         </select>
@@ -329,7 +329,6 @@ document.getElementById('submit-btn').addEventListener('click',function(){
   document.getElementById('btn-text').textContent='Enviando...';
   document.getElementById('err-msg').style.display='none';
 
-  // PAYLOAD — orden exacto igual al Apps Script
   var payload={
     fecha:       g('f_fecha'),
     vendedor:    g('f_vendedor'),
